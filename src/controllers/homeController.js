@@ -1,20 +1,16 @@
 const express = require('express');
-const { getAllUsers, getUserById, updateUserById, createUser } = require('../services/CRUDService');
+const { getAllUsers, getUserById, updateUserById,
+    createUser, deleteUserById } = require('../services/CRUDService');
 
 const getHomepage = async (req, res) => {
     let results = await getAllUsers();
     return res.render('home.ejs', { listUsers: results });
 };
 
-const getAbc = (req, res) => {
-    res.send('<h1>ABC</h1>');
-};
 
-const getHtml = (req, res) => {
-    res.send('<h1>Hoi dan it hihi </h1>');
-};
 
-const getCreatePage = (req, res) => { // render ra giao diện nhập của create page
+// render ra giao diện nhập của create page
+const getCreatePage = (req, res) => {
     res.render('create.ejs');
     /**ta có thể truyền tham số thứ 2 cho render như sau
      * res.render('index', { title: 'Home with EJS' });
@@ -22,8 +18,8 @@ const getCreatePage = (req, res) => { // render ra giao diện nhập của crea
      */
 };
 
-
-const getUpdatePage = async (req, res) => { // render ra giao diện nhập của update page
+// render ra giao diện nhập của update page
+const getUpdatePage = async (req, res) => {
     /**
   * req.params là một thuộc tính của đối tượng req (request) trong Express.js, 
   * req.params sẽ lấy thông tin trên đường dân URL trả về 1 object 
@@ -36,7 +32,7 @@ const getUpdatePage = async (req, res) => { // render ra giao diện nhập củ
     res.render('edit.ejs', { userEdit: user }); // truyền đối số thứ 2 vào hàm render đẻ xử lý bên file ejs
 };
 
-// lấy dữ liệu từ fe để đưa vào database
+// lấy dữ liệu từ fe để tạo người dùng đưa vào database
 const postCreateUser = async (req, res) => {
     // lấy dữ liệu input từ FE và gán cho từng biến (1)
     let email = req.body.email;
@@ -63,28 +59,41 @@ const postCreateUser = async (req, res) => {
 }
 
 
+// update thông tin người dùng
 const postUpdatePage = async (req, res) => {
     // lấy dữ liệu input từ FE và gán cho từng biến (1)
     let email = req.body.email;
     let name = req.body.name;
     let city = req.body.city;
     let userId = req.body.userId;
-
     await updateUserById(email, name, city, userId);
 
     res.redirect('/'); // Chuyển hướng người dùng về trang chủ
 }
 
+// render thông tin người dùng cần xóa
+const postDeleteUser = async (req, res) => {
+    const userId = req.params.id;
+    let user = await getUserById(userId) // lấy database, truyền user id vào hàm getUserById để sử dụng lấy dữ liệu của user
+    res.render('delete.ejs', { userEdit: user })
+}
 
+
+// xóa người dùng
+const postHandleRemoveUser = async (req, res) => {
+    let userId = req.body.userId;
+    await deleteUserById(userId);
+    res.redirect('/'); // Chuyển hướng người dùng về trang chủ
+}
 
 // exports ra bên ngoài
 module.exports = {
     getHomepage,
-    getAbc,
-    getHtml,
     postCreateUser,
     getCreatePage,
     getUpdatePage,
     postUpdatePage,
+    postDeleteUser,
+    postHandleRemoveUser
 };
 

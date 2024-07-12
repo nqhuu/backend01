@@ -28,9 +28,18 @@ const updateUserById = async (email, name, city, userId) => {
     );
 }
 
+
+const deleteUserById = async (userId) => {
+    // thực hiện DELETE dữ liệu vào database với câu lệnh connection.query
+    let [results, fields] = await connection.query(
+        `DELETE FROM Users WHERE id=?;`, // mỗi dấu ? tướng ứng với dữ liệu động đượ tạo ở (1) và gắn vào (3)
+        [userId], // (3)
+    )
+}
 module.exports = {
     getAllUsers,
     getUserById,
     createUser,
-    updateUserById
+    updateUserById,
+    deleteUserById
 }

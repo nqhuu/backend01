@@ -1,13 +1,11 @@
 // Setup router của trang web
 const express = require('express');
 const router = express.Router();
-const { getHomepage, getAbc, getHtml, postCreateUser, getCreatePage, getUpdatePage, postUpdatePage } = require('../controllers/homeController');
+const { getHomepage, getAbc, getHtml,
+    postCreateUser, getCreatePage, getUpdatePage,
+    postUpdatePage, postDeleteUser, postHandleRemoveUser } = require('../controllers/homeController');
 
 router.get('/', getHomepage);
-
-router.get('/abc', getAbc);
-
-router.get('/html', getHtml);
 
 router.get('/create', getCreatePage);
 
@@ -20,6 +18,14 @@ router.get('/update/:id', getUpdatePage);
  * */
 
 router.post('/update-user', postUpdatePage);
+
+router.post('/delete-user/:id', postDeleteUser);
+
+router.post('/delete-user', postHandleRemoveUser);
+
+
+
+
 
 
 module.exports = router;
