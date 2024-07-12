@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create A Users</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <!-- thẻ a tương ứng với thương thức get -->
+        <a href="/">Home</a>
+        <a class="active" href="/create">Create Users</a>
+    </div>
+    <div class="form-add-new">
+        <!-- action chuyển trang nếu ta gắn routes vào đó, method để áp dụng phương thức get hoặc post-->
+        <form action="/create-user" method="POST">
+            <fieldset>
+                <legend>Form add new users</legend>
+                <div class="input-group">
+                    <label for="">Email:</label>
+                    <input type="text" name="email" id="">
+                    <!-- đặt name tại đây để phía server có thể lấy được dữ liệu input vào server theo phương thức req.body-->
+                </div>
+                <div class="input-group">
+                    <label for="">Name:</label>
+                    <input type="text" name="name" id="">
+                </div>
+                <div class="input-group">
+                    <label for="">City:</label>
+                    <input type="text" name="city" id="">
+                </div>
+                <div>
+                    <button>save</button>
+                    <!-- khi người dùng click vào button thì trình duyệt sẽ điều hướng trang web đến với router được ghi lại action của thẻ form với phương thức POST -->
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+
+</html>

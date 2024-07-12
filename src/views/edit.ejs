@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update A Users</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <!-- <%= JSON.stringify(userEdit) %> -->
+    <div class="topnav">
+        <!-- thẻ a tương ứng với thương thức get -->
+        <a href="/">Home</a>
+        <a href="/create">Create Users</a>
+    </div>
+    <div class="form-add-new">
+        <!-- action chuyển trang nếu ta gắn routes vào đó, method để áp dụng phương thức get hoặc post-->
+        <form action="/update-user" method="POST">
+            <fieldset>
+                <legend>Update a users</legend>
+
+                <div class="input-group d-none">
+                    <label for="">Id:</label>
+                    <input type="text" name="userId" value="<%= userEdit.id %>">
+                </div>
+                <div class="input-group">
+                    <label for="">Email:</label>
+                    <input type="text" name="email" value="<%= userEdit.email %>">
+                    <!-- đặt name tại đây để phía server có thể lấy được dữ liệu input vào server theo phương thức req.body-->
+                </div>
+                <div class="input-group">
+                    <label for="">Name:</label>
+                    <input type="text" name="name" value="<%= userEdit.name %>">
+                </div>
+                <div class="input-group">
+                    <label for="">City:</label>
+                    <input type="text" name="city" value="<%= userEdit.city %>">
+                </div>
+                <div>
+                    <button>save</button>
+                    <!-- khi người dùng click vào button thì trình duyệt sẽ điều hướng trang web đến với router được ghi lại action của thẻ form với phương thức POST -->
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+
+</html>
